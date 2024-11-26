@@ -58,21 +58,27 @@ public class MorseCodeGUI extends JFrame {
         translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 25));
         translateToEnglishButton.setFont(new Font("Arial", Font.BOLD, 20));
         playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 25));
+        playMorseButton.setFont(new Font("Arial", Font.BOLD, 20));
         stopMorseButton = new JButton("Stop Morse Code", IconFontSwing.buildIcon(FontAwesome.STOP, 25));
+        stopMorseButton.setFont(new Font("Arial", Font.BOLD, 20));
         saveTextButton = new JButton("Save Text", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 25));
+        saveTextButton.setFont(new Font("Arial", Font.BOLD, 20));
         saveMorseButton = new JButton("Save Morse", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 25));
+        saveMorseButton.setFont(new Font("Arial", Font.BOLD, 20));
        
-
         JLabel italianLabel = new JLabel("Testo Italiano");
+        italianLabel.setFont(new Font("Arial", Font.BOLD, 35));
         italianTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
         JLabel englishLabel = new JLabel("Testo Inglese");
+        englishLabel.setFont(new Font("Arial", Font.BOLD, 35));
         englishTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
         JLabel morseLabel = new JLabel("Morse Code");
+        morseLabel.setFont(new Font("Arial", Font.BOLD, 35));
         morseTextArea.setFont(new Font("Monospaced", Font.PLAIN, 25));
 
         setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel(new GridLayout(1, 3));
+        JPanel topPanel = new JPanel(new GridLayout(1, 2));
         addMenuBar(topPanel);
         add(topPanel, BorderLayout.NORTH);
 
@@ -111,7 +117,6 @@ public class MorseCodeGUI extends JFrame {
         buttonPanel.add(saveTextButton);
         buttonPanel.add(saveMorseButton);
         add(buttonPanel, BorderLayout.SOUTH);
-
 
         translateItalianToEnglishButton.addActionListener(e -> {
             try {
@@ -270,7 +275,6 @@ public class MorseCodeGUI extends JFrame {
         };
     }
 
-
     private void addMenuBar(JPanel topPanel) {
         JMenuBar menuBar = new JMenuBar();
 
@@ -300,7 +304,6 @@ public class MorseCodeGUI extends JFrame {
 
         topPanel.add(menuBar);
     }
-
 
     private JSlider createSlider(String pitch, int min, int max, int value) {
         JSlider slider = new JSlider(min, max, value);
