@@ -1,45 +1,34 @@
 # Morse Code Translator 📡
 
-Morse Code Translator is a Java Swing application that enables users to translate between English text and Morse code. It also supports playing Morse code as audio and saving translated text to files.
+Morse Code Translator V2 is a Java Swing application that enables users to translate between Italian text to English text and Morse code. It also supports playing Morse code as audio and saving translated text to files.
 
 ## Features ✨
 
+ **Translate from Italian to English**: Converts Italian text into English text.
 - **Translate to Morse**: Converts English text into Morse code.
 - **Translate to English**: Converts Morse code into English text.
 - **Play Morse Code**: Plays the Morse code audio.
 - **Save Text/Morse**: Saves text or Morse code to a text file.
-- **Switch Theme**: Toggles between light and dark themes.
 
-## Screenshots 🖼️
-
-<table>
-  <tr>
-    <td><img src="img/2024-07-14-19-23-19.png" alt="Morse Code Translator screenshot 1"></td>
-    <td><img src="img/2024-07-14-19-22-45.png" alt="Morse Code Translator screenshot 2"></td>
-  </tr>
-  <tr>
-    <td><img src="img/2024-07-14-19-23-50.png" alt="Morse Code Translator screenshot 3"></td>
-    <td><img src="img/2024-07-14-19-24-12.png" alt="Morse Code Translator screenshot 4"></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><img src="img/2024-07-14-19-24-49.png" alt="Morse Code Translator screenshot 5"></td>
-  </tr>
-</table>
 
 ## Usage 🚀
 
 1. **Translate Text**:
-   - Enter text in the "Plain Text" area.
+   - Enter text in the "" Italian text area.
+   - Click **Translate to English** to convert it to English.
+
+2. **Translate Text**:
+   - Enter text in the "" English text area.
    - Click **Translate to Morse** to convert it to Morse code.
 
-2. **Translate Morse Code**:
+3. **Translate Morse Code**:
    - Enter Morse code in the "Morse Code" area.
    - Click **Translate to English** to convert it to English text.
 
-3. **Play Morse Code**:
+4. **Play Morse Code**:
    - Click **Play Morse Code** to hear the Morse code audio.
 
-4. **Save Files**:
+5. **Save Files**:
    - Use **Save Text** or **Save Morse** buttons to save content to files.
 
 ## Settings ⚙️
@@ -52,6 +41,7 @@ Adjust settings like `speed`, `pitch`, and `volume` from the **Settings** menu.
 - Swing (GUI framework)
 - FlatLaf (Look and Feel)
 - JIconFont (FontAwesome icons)
+- Google API script for Translate italian to english
 
 ## Installation 🛠️
 
@@ -59,7 +49,7 @@ To run the Morse Code Translator:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/dog-broad/MorseCodeTranslator.git
+   git clone git@github.com:giuppycode/Radio-ConverterV2.git
    ```
    
 2. Build the project using Maven:
