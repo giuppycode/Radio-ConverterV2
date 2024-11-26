@@ -1,7 +1,6 @@
 package com.dog_broad;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.BufferedWriter;
@@ -9,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -54,8 +52,11 @@ public class MorseCodeGUI extends JFrame {
         englishTextArea = new JTextArea();
         morseTextArea = new JTextArea();
         translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 25));
+        translateItalianToEnglishButton.setFont(new Font("Arial", Font.BOLD, 20));
         translateToMorseButton = new JButton("Translate to Morse", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 25));
+        translateToMorseButton.setFont(new Font("Arial", Font.BOLD, 20));
         translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 25));
+        translateToEnglishButton.setFont(new Font("Arial", Font.BOLD, 20));
         playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 25));
         stopMorseButton = new JButton("Stop Morse Code", IconFontSwing.buildIcon(FontAwesome.STOP, 25));
         saveTextButton = new JButton("Save Text", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 25));
@@ -269,37 +270,6 @@ public class MorseCodeGUI extends JFrame {
         };
     }
 
-    private static JScrollPane getScrollPane() {
-        JEditorPane helpText = new JEditorPane();
-        helpText.setContentType("text/html");
-        helpText.setEditable(false);
-        helpText.setText("<html><body style='font-family: Arial, sans-serif; font-size: 14px;'>"
-                + "<h1>Welcome to Morse Code Translator!</h1>"
-                + "<p>This application allows you to translate between English text and Morse code.</p>"
-                + "<h2>Features:</h2>"
-                + "<ul>"
-                + "<li><b>Translate to Morse:</b> Converts the entered English text into Morse code.</li>"
-                + "<li><b>Translate to English:</b> Converts the entered Morse code into English text.</li>"
-                + "<li><b>Play Morse Code:</b> Plays the Morse code audio using sound.</li>"
-                + "<li><b>Stop Morse Code:</b> Stops the currently playing Morse code audio.</li>"
-                + "<li><b>Save Text/Morse:</b> Saves the entered text or Morse code to a text file.</li>"
-                + "<li><b>Switch Theme:</b> Toggles between light and dark themes for the application.</li>"
-                + "</ul>"
-                + "<h2>Usage:</h2>"
-                + "<ul>"
-                + "<li>Enter text in the 'Plain Text' area and click 'Translate to Morse'.</li>"
-                + "<li>Enter Morse code in the 'Morse Code' area and click 'Translate to English'.</li>"
-                + "<li>Adjust settings like speed, pitch, and volume from the 'Settings' menu.</li>"
-                + "<li>Use the 'Save' buttons to save your work.</li>"
-                + "<li>Enjoy translating and learning Morse code!</li>"
-                + "</ul>"
-                + "</body></html>");
-
-        JScrollPane scrollPane = new JScrollPane(helpText);
-        scrollPane.setPreferredSize(new Dimension(600, 400));
-
-        return scrollPane;
-    }
 
     private void addMenuBar(JPanel topPanel) {
         JMenuBar menuBar = new JMenuBar();
@@ -327,12 +297,6 @@ public class MorseCodeGUI extends JFrame {
         settingsMenu.add(createSliderPanel("Pitch", pitchSlider, "Hz"));
         settingsMenu.add(createSliderPanel("Volume", volumeSlider, "%"));
         menuBar.add(settingsMenu);
-
-        // Help menu
-        
-        
-        
-      
 
         topPanel.add(menuBar);
     }
