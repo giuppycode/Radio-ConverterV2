@@ -1,7 +1,6 @@
 package com.dog_broad;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -31,9 +30,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-
 import jiconfont.icons.font_awesome.FontAwesome;
 import jiconfont.swing.IconFontSwing;
 
@@ -48,7 +44,6 @@ public class MorseCodeGUI extends JFrame {
     private final JButton stopMorseButton;
     private final JButton saveTextButton;
     private final JButton saveMorseButton;
-    private final JButton switchThemeButton;
     private JSlider speedSlider;
     private JSlider pitchSlider;
     private JSlider volumeSlider;
@@ -65,18 +60,18 @@ public class MorseCodeGUI extends JFrame {
         italianTextArea = new JTextArea();
         englishTextArea = new JTextArea();
         morseTextArea = new JTextArea();
-        translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18));
+        translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18));
         translateToMorseButton = new JButton("Translate to Morse", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18));
         translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18));
         playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 18));
         stopMorseButton = new JButton("Stop Morse Code", IconFontSwing.buildIcon(FontAwesome.STOP, 18));
         saveTextButton = new JButton("Save Text", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18));
         saveMorseButton = new JButton("Save Morse", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18));
-        switchThemeButton = new JButton("Switch to Light Theme", IconFontSwing.buildIcon(FontAwesome.SUN_O, 18));
+       
 
-        JLabel italianLabel = new JLabel("Plain Text");
+        JLabel italianLabel = new JLabel("Testo Italiano");
         italianTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
-        JLabel englishLabel = new JLabel("Plain Text");
+        JLabel englishLabel = new JLabel("Testo Inglese");
         englishTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
         JLabel morseLabel = new JLabel("Morse Code");
         morseTextArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
@@ -92,7 +87,7 @@ public class MorseCodeGUI extends JFrame {
         italianPanel.add(italianLabel, BorderLayout.NORTH);
         italianTextArea.setLineWrap(true);
         italianTextArea.setWrapStyleWord(true);
-        italianPanel.add(new JScrollPane(englishTextArea), BorderLayout.CENTER);
+        italianPanel.add(new JScrollPane(italianTextArea), BorderLayout.CENTER);
 
         JPanel englishPanel = new JPanel(new BorderLayout());
         englishPanel.add(englishLabel, BorderLayout.NORTH);
@@ -121,15 +116,14 @@ public class MorseCodeGUI extends JFrame {
         buttonPanel.add(stopMorseButton);
         buttonPanel.add(saveTextButton);
         buttonPanel.add(saveMorseButton);
-        buttonPanel.add(switchThemeButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
 
         translateItalianToEnglishButton.addActionListener(e -> {
             try {
                 String italianText = italianTextArea.getText();
-             //   String englishText = MorseCodeTranslator.ItalianToEnglish.(italianText);
-              //  italianTextArea.setText(englishText);
+            String englishText = MorseCodeTranslator.ItalianToEnglish(italianText);
+               englishTextArea.setText(englishText);
             } catch (Exception ex) {
                 showErrorDialog("Error translating to English: " + ex.getMessage());
             }
@@ -187,13 +181,6 @@ public class MorseCodeGUI extends JFrame {
             }
         });
 
-        switchThemeButton.addActionListener(e -> {
-            try {
-                switchTheme();
-            } catch (Exception ex) {
-                showErrorDialog("Error switching theme: " + ex.getMessage());
-            }
-        });
 
         speedSlider.addChangeListener(e -> {
             try {
@@ -219,8 +206,6 @@ public class MorseCodeGUI extends JFrame {
             }
         });
 
-        // Set initial theme
-        switchTheme();
     }
 
     private void createHelpDialog() {
@@ -428,31 +413,7 @@ public class MorseCodeGUI extends JFrame {
         }
     }
 
-    private void switchTheme() {
-        if (isDarkTheme) {
-            FlatLightLaf.setup();
-            switchThemeButton.setText("Switch to Dark Theme");
-            switchThemeButton.setIcon(IconFontSwing.buildIcon(FontAwesome.MOON_O, 18));
-            translateToMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18, Color.BLACK));
-            translateToEnglishButton.setIcon(IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18, Color.BLACK));
-            playMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.PLAY_CIRCLE, 18, Color.BLACK));
-            stopMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.STOP_CIRCLE, 18, Color.BLACK));
-            saveTextButton.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18, Color.BLACK));
-            saveMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18, Color.BLACK));
-        } else {
-            FlatDarkLaf.setup();
-            switchThemeButton.setText("Switch to Light Theme");
-            switchThemeButton.setIcon(IconFontSwing.buildIcon(FontAwesome.SUN_O, 18, Color.WHITE));
-            translateToMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18, Color.WHITE));
-            translateToEnglishButton.setIcon(IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18, Color.WHITE));
-            playMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.PLAY, 18, Color.WHITE));
-            stopMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.STOP_CIRCLE, 18, Color.WHITE));
-            saveTextButton.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18, Color.WHITE));
-            saveMorseButton.setIcon(IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18, Color.WHITE));
-        }
-        isDarkTheme = !isDarkTheme;
-        SwingUtilities.updateComponentTreeUI(this);
-    }
+   
 
     private void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
