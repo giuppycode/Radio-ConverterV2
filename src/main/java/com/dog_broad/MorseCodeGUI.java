@@ -1,7 +1,6 @@
 package com.dog_broad;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -9,9 +8,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -23,11 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
-import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import jiconfont.icons.font_awesome.FontAwesome;
@@ -47,34 +41,33 @@ public class MorseCodeGUI extends JFrame {
     private JSlider speedSlider;
     private JSlider pitchSlider;
     private JSlider volumeSlider;
-    private boolean isDarkTheme = true;
 
     public MorseCodeGUI() {
         IconFontSwing.register(FontAwesome.getIconFont());
 
         setTitle("Morse Code Translator");
-        setSize(900, 600);
+        setSize(1400, 1100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         italianTextArea = new JTextArea();
         englishTextArea = new JTextArea();
         morseTextArea = new JTextArea();
-        translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18));
-        translateToMorseButton = new JButton("Translate to Morse", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18));
-        translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18));
-        playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 18));
-        stopMorseButton = new JButton("Stop Morse Code", IconFontSwing.buildIcon(FontAwesome.STOP, 18));
-        saveTextButton = new JButton("Save Text", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18));
-        saveMorseButton = new JButton("Save Morse", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18));
+        translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 25));
+        translateToMorseButton = new JButton("Translate to Morse", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 25));
+        translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 25));
+        playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 25));
+        stopMorseButton = new JButton("Stop Morse Code", IconFontSwing.buildIcon(FontAwesome.STOP, 25));
+        saveTextButton = new JButton("Save Text", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 25));
+        saveMorseButton = new JButton("Save Morse", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 25));
        
 
         JLabel italianLabel = new JLabel("Testo Italiano");
-        italianTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        italianTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
         JLabel englishLabel = new JLabel("Testo Inglese");
-        englishTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
+        englishTextArea.setFont(new Font("SansSerif", Font.PLAIN, 25));
         JLabel morseLabel = new JLabel("Morse Code");
-        morseTextArea.setFont(new Font("Monospaced", Font.PLAIN, 18));
+        morseTextArea.setFont(new Font("Monospaced", Font.PLAIN, 25));
 
         setLayout(new BorderLayout());
 
@@ -208,41 +201,6 @@ public class MorseCodeGUI extends JFrame {
 
     }
 
-    private void createHelpDialog() {
-        JDialog helpDialog = new JDialog(this, "Help", true);
-        helpDialog.setSize(800, 400);
-        helpDialog.setLayout(new BorderLayout());
-
-        // Create a JTextArea to explain features
-        JScrollPane scrollPane = getScrollPane();
-        helpDialog.add(scrollPane, BorderLayout.CENTER);
-
-        // Add collapsible Text to Morse Table
-        DefaultTableModel tableModel = getDefaultTableModel();
-
-        JTable table = new JTable(tableModel);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        table.getColumnModel().getColumn(0).setPreferredWidth(100); // Adjusting column width
-        table.getColumnModel().getColumn(1).setPreferredWidth(180); // Adjusting column width
-        table.setFont(new Font("Arial", Font.PLAIN, 12)); // Setting font size and style
-        // Center-align content of column 2
-        table.getColumnModel().getColumn(1).setCellRenderer(new DefaultTableCellRenderer() {
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setHorizontalAlignment(SwingConstants.CENTER);
-                label.setFont(new Font("Monospaced", Font.PLAIN, 12));
-                return label;
-            }
-        });
-
-        JScrollPane tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setBorder(BorderFactory.createTitledBorder("Text to Morse Table"));
-        tableScrollPane.setPreferredSize(new Dimension(300, 200));
-        helpDialog.add(tableScrollPane, BorderLayout.EAST);
-
-        helpDialog.setVisible(true);
-    }
-
     private static DefaultTableModel getDefaultTableModel() {
         String[] columnNames = {"Character", "Morse Code"};
         Object[][] data = {
@@ -371,11 +329,10 @@ public class MorseCodeGUI extends JFrame {
         menuBar.add(settingsMenu);
 
         // Help menu
-        JMenu helpMenu = new JMenu("Help");
-        JMenuItem helpMenuItem = new JMenuItem("Help Contents");
-        helpMenuItem.addActionListener(e -> createHelpDialog());
-        helpMenu.add(helpMenuItem);
-        menuBar.add(helpMenu);
+        
+        
+        
+      
 
         topPanel.add(menuBar);
     }
@@ -412,8 +369,6 @@ public class MorseCodeGUI extends JFrame {
             }
         }
     }
-
-   
 
     private void showErrorDialog(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
