@@ -1,8 +1,9 @@
 package com.dog_broad;
 
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.swing.SwingUtilities;
 
 public class MorseCodeTranslator {
     private static final Map<Character, String> englishToMorse = new HashMap<>();
@@ -46,6 +47,11 @@ public class MorseCodeTranslator {
         }
         return englishText.toString().trim();
     }
+
+    //public static String ItalianToEnglish(String italianText) {
+        
+       
+   // }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new MorseCodeGUI().setVisible(true));

@@ -1,21 +1,47 @@
 package com.dog_broad;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import jiconfont.icons.font_awesome.FontAwesome;
-import jiconfont.swing.IconFontSwing;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+
+import jiconfont.icons.font_awesome.FontAwesome;
+import jiconfont.swing.IconFontSwing;
+
 public class MorseCodeGUI extends JFrame {
+    private final JTextArea italianTextArea;
     private final JTextArea englishTextArea;
     private final JTextArea morseTextArea;
+    private final JButton translateItalianToEnglishButton;
     private final JButton translateToMorseButton;
     private final JButton translateToEnglishButton;
     private final JButton playMorseButton;
@@ -36,8 +62,10 @@ public class MorseCodeGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        italianTextArea = new JTextArea();
         englishTextArea = new JTextArea();
         morseTextArea = new JTextArea();
+        translateItalianToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18));
         translateToMorseButton = new JButton("Translate to Morse", IconFontSwing.buildIcon(FontAwesome.ARROW_RIGHT, 18));
         translateToEnglishButton = new JButton("Translate to English", IconFontSwing.buildIcon(FontAwesome.ARROW_LEFT, 18));
         playMorseButton = new JButton("Play Morse Code", IconFontSwing.buildIcon(FontAwesome.PLAY, 18));
@@ -46,6 +74,8 @@ public class MorseCodeGUI extends JFrame {
         saveMorseButton = new JButton("Save Morse", IconFontSwing.buildIcon(FontAwesome.FLOPPY_O, 18));
         switchThemeButton = new JButton("Switch to Light Theme", IconFontSwing.buildIcon(FontAwesome.SUN_O, 18));
 
+        JLabel italianLabel = new JLabel("Plain Text");
+        italianTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
         JLabel englishLabel = new JLabel("Plain Text");
         englishTextArea.setFont(new Font("SansSerif", Font.PLAIN, 18));
         JLabel morseLabel = new JLabel("Morse Code");
@@ -53,11 +83,17 @@ public class MorseCodeGUI extends JFrame {
 
         setLayout(new BorderLayout());
 
-        JPanel topPanel = new JPanel(new GridLayout(1, 2));
+        JPanel topPanel = new JPanel(new GridLayout(1, 3));
         addMenuBar(topPanel);
         add(topPanel, BorderLayout.NORTH);
 
         // Create panels to hold text areas and labels
+        JPanel italianPanel = new JPanel(new BorderLayout());
+        italianPanel.add(italianLabel, BorderLayout.NORTH);
+        italianTextArea.setLineWrap(true);
+        italianTextArea.setWrapStyleWord(true);
+        italianPanel.add(new JScrollPane(englishTextArea), BorderLayout.CENTER);
+
         JPanel englishPanel = new JPanel(new BorderLayout());
         englishPanel.add(englishLabel, BorderLayout.NORTH);
         englishTextArea.setLineWrap(true);
@@ -71,12 +107,14 @@ public class MorseCodeGUI extends JFrame {
         morsePanel.add(new JScrollPane(morseTextArea), BorderLayout.CENTER);
 
         // Add panels to the main layout
-        JPanel textPanel = new JPanel(new GridLayout(1, 2));
+        JPanel textPanel = new JPanel(new GridLayout(1, 3));
+        textPanel.add(italianPanel);
         textPanel.add(englishPanel);
         textPanel.add(morsePanel);
         add(textPanel, BorderLayout.CENTER);
 
         JPanel buttonPanel = new JPanel(new GridLayout(2, 3));
+        buttonPanel.add(translateItalianToEnglishButton);
         buttonPanel.add(translateToMorseButton);
         buttonPanel.add(translateToEnglishButton);
         buttonPanel.add(playMorseButton);
@@ -85,6 +123,17 @@ public class MorseCodeGUI extends JFrame {
         buttonPanel.add(saveMorseButton);
         buttonPanel.add(switchThemeButton);
         add(buttonPanel, BorderLayout.SOUTH);
+
+
+        translateItalianToEnglishButton.addActionListener(e -> {
+            try {
+                String italianText = italianTextArea.getText();
+             //   String englishText = MorseCodeTranslator.ItalianToEnglish.(italianText);
+              //  italianTextArea.setText(englishText);
+            } catch (Exception ex) {
+                showErrorDialog("Error translating to English: " + ex.getMessage());
+            }
+        });
 
         translateToMorseButton.addActionListener(e -> {
             try {
